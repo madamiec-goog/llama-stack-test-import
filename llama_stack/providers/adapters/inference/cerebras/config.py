@@ -18,6 +18,6 @@ class CerebrasImplConfig(BaseModel):
         description="Base URL for the Cerebras API",
     )
     api_key: Optional[str] = Field(
-        default=None,
+        default=os.environ.get("CEREBRAS_API_KEY"),
         description="Cerebras API Key",
     )
