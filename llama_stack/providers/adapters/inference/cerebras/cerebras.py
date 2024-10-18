@@ -175,9 +175,10 @@ class CerebrasInferenceAdapter(ModelRegistryHelper, Inference):
         for raw_message in request.messages:
             content = raw_message.content
 
-            assert isinstance(
-                content, str
-            ), f"Message content must be of type `str` but got `{type(content)}`"
+            if not isinstance(content, str):
+                raise ValueError(
+                    f"Message content must be of type `str` but got `{type(content)}`"
+                )
 
             if isinstance(raw_message, UserMessage):
                 messages.append(
