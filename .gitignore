@@ -15,3 +15,4 @@ Package.resolved
 *.ipynb_checkpoints*
 .idea
 venv
+_build
