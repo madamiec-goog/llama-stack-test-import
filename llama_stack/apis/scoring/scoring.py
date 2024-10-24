@@ -18,13 +18,14 @@ ScoringResult = Dict[str, Any]
 
 @json_schema_type
 class ScoreBatchResponse(BaseModel):
-    dataset_id: str
+    dataset_id: Optional[str] = None
+    results: Dict[str, ScoringResult]
 
 
 @json_schema_type
 class ScoreResponse(BaseModel):
     # each key in the dict is a scoring function name
-    results: List[Dict[str, ScoringResult]]
+    results: Dict[str, ScoringResult]
 
 
 class ScoringFunctionStore(Protocol):
@@ -37,7 +38,10 @@ class Scoring(Protocol):
 
     @webmethod(route="/scoring/score_batch")
     async def score_batch(
-        self, dataset_id: str, scoring_functions: List[str]
+        self,
+        dataset_id: str,
+        scoring_functions: List[str],
+        save_results_dataset: bool = False,
     ) -> ScoreBatchResponse: ...
 
     @webmethod(route="/scoring/score")
