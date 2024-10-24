@@ -22,7 +22,7 @@ from llama_stack.apis.safety import Safety
 
 LLAMA_STACK_BUILD_CONFIG_VERSION = "2"
 LLAMA_STACK_RUN_CONFIG_VERSION = "2"
-
+LLAMA_STACK_DEFAULT_PLATFORM = "linux/arm64"
 
 RoutingKey = Union[str, List[str]]
 
@@ -134,6 +134,10 @@ can be instantiated multiple times (with different configs) if necessary.
 class BuildConfig(BaseModel):
     version: str = LLAMA_STACK_BUILD_CONFIG_VERSION
     name: str
+    platform: str = Field(
+        default=LLAMA_STACK_DEFAULT_PLATFORM,
+        description="The platform for docker image, defaults to linux/arm64",
+    )
     distribution_spec: DistributionSpec = Field(
         description="The distribution spec to build including API providers. "
     )
